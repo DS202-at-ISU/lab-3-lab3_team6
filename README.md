@@ -107,10 +107,16 @@ av <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/av
 parse_number <- function(x) as.numeric(str_extract(x, "[0-9]+"))
 
 # reshaping the data for deaths
-deaths <- av %>% select(Name.Alias, starts_with("Death")) %>% pivot_longer(cols = Death1:Death5,
-                    names_to = "death",
-                    values_to = "result") %>% group_by(Name.Alias) %>% filter(result == "YES") %>% summarise(n = n()) %>% summarise(mean_n = mean(n))
+deaths <- av %>% select(URL, starts_with("Death")) %>% pivot_longer(cols = Death1:Death5,
+                                                                           names_to = "death",
+                                                                           values_to = "result") %>% group_by(URL) %>% summarise(death_count = sum(result == "YES"))  %>% summarise(death_mean = mean(death_count))
+
+print(deaths$mean_n)
 ```
+
+    ## Warning: Unknown or uninitialised column: `mean_n`.
+
+    ## NULL
 
 ## Individually
 
@@ -153,6 +159,9 @@ If they joined the avengers team, there is a 40% chance that the
 character died. I did this by calculating the number of total death and
 divide by total avangers which gives us 39.88 or approx 40%. Hence we
 have verified the fact.
+
+Abhi - There’s a 2-in-3 chance that a member of the Avengers returned
+from their first stint in the afterlife
 
 Upload your changes to the repository. Discuss and refine answers as a
 team.
