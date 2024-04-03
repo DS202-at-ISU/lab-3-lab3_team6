@@ -50,7 +50,7 @@ deaths <- av %>% select(Name.Alias, starts_with("Death")) %>% pivot_longer(cols 
                     names_to = "death",
                     values_to = "result") %>% group_by(Name.Alias) %>% filter(result == "YES") %>% summarise(n = n()) %>% summarise(mean_n = mean(n))
 
-
+print(deaths$mean_n)
 
 
 ```
