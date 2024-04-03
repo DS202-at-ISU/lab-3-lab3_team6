@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/kHEW-1QV)
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
 
@@ -77,6 +76,42 @@ Similarly, deal with the returns of characters.
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.
 
+``` r
+library(dplyr)
+```
+
+    ## Warning: package 'dplyr' was built under R version 4.3.3
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+library(tidyr)
+```
+
+    ## Warning: package 'tidyr' was built under R version 4.3.3
+
+``` r
+library(stringr)
+
+av <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/avengers/avengers.csv", stringsAsFactors = FALSE)
+
+parse_number <- function(x) as.numeric(str_extract(x, "[0-9]+"))
+
+# reshaping the data for deaths
+deaths <- av %>% select(Name.Alias, starts_with("Death")) %>% pivot_longer(cols = Death1:Death5,
+                    names_to = "death",
+                    values_to = "result") %>% group_by(Name.Alias) %>% filter(result == "YES") %>% summarise(n = n()) %>% summarise(mean_n = mean(n))
+```
+
 ## Individually
 
 For each team member, copy this part of the report.
@@ -88,17 +123,36 @@ possible.
 
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check.
-
 ### Include the code
-
-Make sure to include the code to derive the (numeric) fact for the
-statement
 
 ### Include your answer
 
-Include at least one sentence discussing the result of your
-fact-checking endeavor.
+Vedant - “Out of 173 listed Avengers, my analysis found that 69 had died
+at least one time after they joined the team.5 That’s about 40 percent
+of all people who have ever signed on to the team. Let’s put it this
+way: If you fall from four or five stories up, there’s a 50 percent
+chance you die. Getting a membership card in the Avengers is roughly
+like jumping off a four-story building.”
+
+``` r
+# filter avengers who died at least once
+
+av_deaths <- av %>%
+  filter(Death1 == "YES" | Death2 == "YES" | Death3 == "YES" | Death4 == "YES" | Death5 == "YES")
+
+num_deaths <- nrow(av_deaths)
+
+percentage_deaths <- (num_deaths / nrow(av)) * 100
+
+percentage_deaths
+```
+
+    ## [1] 39.88439
+
+If they joined the avengers team, there is a 40% chance that the
+character died. I did this by calculating the number of total death and
+divide by total avangers which gives us 39.88 or approx 40%. Hence we
+have verified the fact.
 
 Upload your changes to the repository. Discuss and refine answers as a
 team.

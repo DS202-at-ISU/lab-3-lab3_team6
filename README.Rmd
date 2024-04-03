@@ -46,24 +46,9 @@ av <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/av
 parse_number <- function(x) as.numeric(str_extract(x, "[0-9]+"))
 
 # reshaping the data for deaths
-deaths <- av %>%
-  select(Name.Alias, starts_with("Death")) %>%
-  gather(Time, Death, -Name.Alias) %>%
-  mutate(Time = parse_number(Time),
-         Death = case_when(
-           Death == "YES" ~ "yes",
-           Death == "NO" ~ "no",
-           TRUE ~ ""
-         )) %>%
-  filter(Death != "") %>%
-  arrange(Name.Alias, Time)
-
-avg_deaths <- deaths %>%
-  group_by(Name.Alias) %>%
-  summarise(AvgDeaths = mean(Time, na.rm = TRUE))
-
-head(deaths)
-print(avg_deaths)
+deaths <- av %>% select(Name.Alias, starts_with("Death")) %>% pivot_longer(cols = Death1:Death5,
+                    names_to = "death",
+                    values_to = "result") %>% group_by(Name.Alias) %>% filter(result == "YES") %>% summarise(n = n()) %>% summarise(mean_n = mean(n))
 
 
 
