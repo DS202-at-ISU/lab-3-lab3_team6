@@ -4,19 +4,17 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Lab report #3 - instructions
 
-Follow the instructions posted at https://ds202-at-isu.github.io/labs.html for the lab assignment. The work is meant to be finished during the lab time, but you have time until Monday evening to polish things.
+Follow the instructions posted at <https://ds202-at-isu.github.io/labs.html> for the lab assignment. The work is meant to be finished during the lab time, but you have time until Monday evening to polish things.
 
-Include your answers in this document (Rmd file). Make sure that it knits properly (into the md file). Upload both the Rmd and the md file to your repository.  
+Include your answers in this document (Rmd file). Make sure that it knits properly (into the md file). Upload both the Rmd and the md file to your repository.
 
-All submissions to the github repo will be automatically uploaded for grading once the due date is passed.
-Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
+All submissions to the github repo will be automatically uploaded for grading once the due date is passed. Submit a link to your repository on Canvas (only one submission per team) to signal to the instructors that you are done with your submission.
 
 # Lab 3: Avenger's Peril
 
@@ -29,12 +27,11 @@ av <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/av
 head(av)
 ```
 
-Get the data into a format where the five columns for Death[1-5] are replaced by two columns: Time, and Death. Time should be a number between 1 and 5 (look into the function `parse_number`); Death is a categorical variables with values "yes", "no" and "". Call the resulting data set `deaths`. 
+Get the data into a format where the five columns for Death[1-5] are replaced by two columns: Time, and Death. Time should be a number between 1 and 5 (look into the function `parse_number`); Death is a categorical variables with values "yes", "no" and "". Call the resulting data set `deaths`.
 
 Similarly, deal with the returns of characters.
 
-Based on these datasets calculate the average number of deaths an Avenger suffers. 
-
+Based on these datasets calculate the average number of deaths an Avenger suffers.
 
 ```{r}
 library(dplyr)
@@ -54,7 +51,7 @@ print(deaths)
 
 ## Individually
 
-For each team member, copy this part of the report. 
+For each team member, copy this part of the report.
 
 Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
 
@@ -83,8 +80,32 @@ percentage_deaths
 
 If they joined the avengers team, there is a 40% chance that the character died. I did this by calculating the number of total death and divide by total avangers which gives us 39.88 or approx 40%. Hence we have verified the fact.
 
-
 Abhi - There’s a 2-in-3 chance that a member of the Avengers returned from their first stint in the afterlife
 
+Jennifer - "I counted 89 total deaths — some unlucky Avengers are basically Meat Loaf with an E-ZPass — and on 57 occasions the individual made a comeback."
+
+```{r warning=TRUE}
+# grouping death and return columns for calculations
+
+death_cols <- av[, c("Death1", "Death2", "Death3", "Death4", "Death5")]
+return_cols <- av[, c("Return1", "Return2", "Return3", "Return4",
+"Return5")]
+
+#counting "YES" values in the Death1-5 and Return1-5 columns death_count
+death_count<- rowSums(death_cols == "YES", na.rm = TRUE) 
+return_count <- rowSums(return_cols == "YES", na.rm = TRUE)
+
+# summing total count of "YES" values across Death1 to Death5 columns
+
+total_death_count <- sum(death_count) 
+total_return_count <- sum(return_count)
+
+# Displaying the total count of deaths and combeacks
+
+print(total_death_count) 
+print(total_return_count) 
+```
+
+The data supports the article's claim that there were 89 total deaths and 57 total returns. I calculated this by summing all the Death columns (Death1, Death2,..., Death5) and Return columns (Return1, Return2,..., Return5).
 
 Upload your changes to the repository. Discuss and refine answers as a team.
