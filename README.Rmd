@@ -86,4 +86,8 @@ percentage_deaths
 
 If they joined the avengers team, there is a 40% chance that the character died. I did this by calculating the number of total death and divide by total avangers which gives us 39.88 or approx 40%. Hence we have verified the fact.
 
+
+Abhi - There’s a 2-in-3 chance that a member of the Avengers returned from their first stint in the afterlife
+
+
 Upload your changes to the repository. Discuss and refine answers as a team.
