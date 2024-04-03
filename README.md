@@ -164,7 +164,7 @@ return_count <- rowSums(return_cols == "YES", na.rm = TRUE)
 total_death_count <- sum(death_count) 
 total_return_count <- sum(return_count)
 
-# Displaying the total count of deaths and combeacks
+# displaying the total count of deaths and returns
 
 print(total_death_count) 
 print(total_return_count) 
