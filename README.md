@@ -169,6 +169,30 @@ total_return_count <- sum(return_count)
 print(total_death_count) 
 print(total_return_count) 
 ```
+Bela - "only a 50 percent chance they recovered from a second or third death."
+
+```{r}
+#using the death_count computed by jen I will create a new sum of when a hero died more than twice 
+
+# Avengers who died at least twice
+av_deaths_twice <- av %>%
+  filter(rowSums(death_cols == "YES", na.rm = TRUE) >= 2)
+
+# Avengers who died at least twice and returned at least twice 
+av_deaths_twice_with_return <- av %>%
+  filter(rowSums(death_cols == "YES", na.rm = TRUE) >= 2 & rowSums(return_cols == "YES", na.rm = TRUE) >= 2)
+
+# number of Avengers - satisfy previous requirements
+num_deaths_twice_with_returns <- nrow(av_deaths_twice_with_return)
+
+# percentage of Avengers who returned at least once after dying at least twice
+percentage_deaths_twice_with_returns <- (num_deaths_twice_with_returns / nrow(av_deaths_twice)) * 100
+
+print(percentage_deaths_twice_with_returns)
+
+
+```
+
 
 The data supports the article's claim that there were 89 total deaths and 57 total returns. I calculated this by summing all the Death columns (Death1, Death2,..., Death5) and Return columns (Return1, Return2,..., Return5).
 
