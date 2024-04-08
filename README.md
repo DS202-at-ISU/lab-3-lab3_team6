@@ -170,6 +170,10 @@ av %>% filter(Death1 == "YES") %>% select(URL, Return1) %>% summarise(n = sum(Re
     ##           n
     ## 1 0.6666667
 
+``` r
+# The data proves that there is a 2-in-3 chance that they return after death for the first time
+```
+
 Jennifer - “I counted 89 total deaths — some unlucky Avengers are
 basically Meat Loaf with an E-ZPass — and on 57 occasions the individual
 made a comeback.”
