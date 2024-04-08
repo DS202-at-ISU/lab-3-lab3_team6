@@ -82,6 +82,15 @@ If they joined the avengers team, there is a 40% chance that the character died.
 
 Abhi - There’s a 2-in-3 chance that a member of the Avengers returned from their first stint in the afterlife
 
+```{r}
+
+# Filters avengers who have died and gets the total of "YES" divided by the amount of avengers that have died
+av %>% filter(Death1 == "YES") %>% select(URL, Return1) %>% summarise(n = sum(Return1 == "YES")/n())
+
+```
+
+
+
 Jennifer - "I counted 89 total deaths — some unlucky Avengers are basically Meat Loaf with an E-ZPass — and on 57 occasions the individual made a comeback."
 
 ```{r warning=TRUE}
